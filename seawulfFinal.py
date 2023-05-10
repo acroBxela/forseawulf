@@ -1,3 +1,5 @@
+import geopandas as gpd
+gpd.options.use_pygeos = False
 from gerrychain import (Partition, Graph, MarkovChain,
                         proposals, updaters, constraints, accept, Election)
 from gerrychain.updaters import Tally, cut_edges
@@ -21,11 +23,33 @@ def read_config(file_path):
         return d
 
 
-if len(sys.argv) != 2:
-    print("improper usage of program. Use python seawulf.py config-file.json")
-    sys.exit()
+config = {
+    "incumbents": [
+        {"district":1,"name":"Diana DeGette","precinct":581},
+        {"district":2,"name":"Joe Neguse","precinct":2515},
+        {"district":3,"name":"Lauren Boebert","precinct":1791},
+        {"district":4,"name":"Ken Buck","precinct":316},
+        {"district":5,"name":"Doug Lamborn","precinct":1911},
+        {"district":6,"name":"Jason Crow","precinct":2410}
+    ],
 
-config = read_config(sys.argv[1])
+    "stats_and_column": {
+        "population":"TOTPOP",
+        "wvap":"WVAP",
+        "bvap":"BVAP"
+    },
+
+    "input_json": "seawulf_input.json",
+
+    "stats_output_location": "./seawulf_output_stats",
+    "plans_output_location": "./seawulf_output_plans",
+
+    "stat_base_file_name":"stats_seawulf_output",
+    "plan_base_file_name":"plans_seawulf_output",
+
+    "ensemble_processing_location": "./",
+    "ensemble_processing_file_name": "ensemble_analysis"
+}
 
 ######## Set Up MGGGG #####
 graph = Graph.from_json(config["input_json"])
