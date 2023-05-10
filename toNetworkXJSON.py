@@ -21,6 +21,8 @@ def gdf_to_nx_graph(gdf, neighbors_col='neighbors'):
     return G
 
 gdf = gpd.read_file("adj.geojson")
+gdf['AREA'] = gdf.geometry.area
+
 G = gdf_to_nx_graph(gdf, neighbors_col='neighbors')
 print(G)
 json_graph = json_graph.adjacency_data(G)
