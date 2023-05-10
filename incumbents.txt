@@ -1,0 +1,6 @@
+1,Diana DeGette,581
+2,Joe Neguse,2515
+3,Lauren Boebert,1791
+4,Ken Buck,316
+5,Doug Lamborn,1911
+6,Jason Crow,2410
